@@ -150,3 +150,29 @@ def extract_column_values(df: pd.DataFrame, column_name: str) -> np.ndarray:
 
     return df[column_name].values
 
+
+def rename_column(_df: pd.DataFrame, col_num: int = 0, new_name: str = 'force', inplace: bool = True):
+    if not isinstance(_df, pd.DataFrame):
+        raise TypeError("df must be a pandas DataFrame")
+    if not isinstance(col_num, int):
+        raise TypeError("col_num must be an integer")
+    if not isinstance(new_name, str):
+        raise TypeError("new_name must be a string")
+    if not isinstance(inplace, bool):
+        raise TypeError("inplace must be a boolean")
+    _df.rename(columns={_df.columns[col_num]: new_name}, inplace=inplace)
+
+
+def save_dataframe_to_csv(_df: pd.DataFrame, _output_file_path: str) -> None:
+    """
+    Save DataFrame to a CSV file and print a message.
+
+    Parameters:
+        _df (pd.DataFrame): The DataFrame to save.
+        _output_file_path (str): The file path where the DataFrame will be saved.
+
+    Returns:
+        None
+    """
+    _df.to_csv(_output_file_path, index=False)
+    print(f"Output saved to {_output_file_path}")

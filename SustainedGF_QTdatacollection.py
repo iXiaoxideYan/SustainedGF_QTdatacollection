@@ -8,34 +8,12 @@ import matplotlib.pyplot as plt
 import os
 
 from df import find_max_index, find_max_value, calculate_mean, calculate_std, slice_dataframe, add_custom_column, \
-    extract_column_values
+    extract_column_values, rename_column, save_dataframe_to_csv
 from file import read_csv_file, extract_file_details, check_dir
 
 # File and Dir path
 path = './rawdata_33_33.csv'
 output_directory = './output'
-
-
-def read_data(file_path: str):
-    _df = read_csv_file(file_path)
-    _participant_code, _trial_number = extract_file_details(file_path)
-    return _df, _participant_code, _trial_number
-
-
-# df, participant_code, trial_number = read_data(path)
-
-
-# Rename the first column to 'force'
-def rename_column(_df: pd.DataFrame, col_num: int = 0, new_name: str = 'force', inplace: bool = True):
-    if not isinstance(_df, pd.DataFrame):
-        raise TypeError("df must be a pandas DataFrame")
-    if not isinstance(col_num, int):
-        raise TypeError("col_num must be an integer")
-    if not isinstance(new_name, str):
-        raise TypeError("new_name must be a string")
-    if not isinstance(inplace, bool):
-        raise TypeError("inplace must be a boolean")
-    _df.rename(columns={_df.columns[col_num]: new_name}, inplace=inplace)
 
 
 def plot_raw_data(_df: pd.DataFrame, label: str = 'Force-Time Curve'):
@@ -147,19 +125,10 @@ def plot_auc(x_time: np.ndarray, y_force: np.ndarray, _max_force_value: float, _
         plt.show()
 
 
-def save_dataframe_to_csv(_df: pd.DataFrame, _output_file_path: str) -> None:
-    """
-    Save DataFrame to a CSV file and print a message.
-
-    Parameters:
-        _df (pd.DataFrame): The DataFrame to save.
-        _output_file_path (str): The file path where the DataFrame will be saved.
-
-    Returns:
-        None
-    """
-    _df.to_csv(_output_file_path, index=False)
-    print(f"Output saved to {_output_file_path}")
+def read_data(file_path: str):
+    _df = read_csv_file(file_path)
+    _participant_code, _trial_number = extract_file_details(file_path)
+    return _df, _participant_code, _trial_number
 
 
 if __name__ == '__main__':
