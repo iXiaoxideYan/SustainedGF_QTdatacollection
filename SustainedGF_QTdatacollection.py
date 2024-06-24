@@ -173,8 +173,9 @@ if __name__ == '__main__':
     sfi = calculate_sfi(auc, hauc)
     print(f"Skeletal Force Index (SFI): {sfi:.2f}%")
 
+    output_file = f"{output_directory}/Rawdata_{participant_code}_{trial_number}_force_plot.png"
     # Plot the force-time curve
-    plot_auc(time_values, force_values, max_force_value, auc, sfi)
+    plot_auc(time_values, force_values, max_force_value, auc, sfi, output_file=output_file)
 
     df_output = pd.DataFrame({
         'Participant': [participant_code],
